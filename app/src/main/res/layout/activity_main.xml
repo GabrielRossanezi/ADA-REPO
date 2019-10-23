@@ -28,19 +28,8 @@
         app:rippleColor="#FFFFFF"
         app:srcCompat="@android:drawable/ic_btn_speak_now" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/imageView"
-        android:layout_below="@+id/imageView"
-        android:layout_marginBottom="-68dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="20dp"
-        android:text="Ir para maps" />
+
+
 
     <ListView
         android:layout_width="wrap_content"

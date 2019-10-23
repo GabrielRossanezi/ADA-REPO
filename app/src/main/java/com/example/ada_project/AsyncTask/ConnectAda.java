@@ -1,5 +1,6 @@
 package com.example.ada_project.AsyncTask;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -43,8 +44,10 @@ public class ConnectAda extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+        MainActivity main = new MainActivity();
         if (result != null) {
-            MainActivity.addresses(result);
+            main.addresses(result);
+
         }
     }
 }

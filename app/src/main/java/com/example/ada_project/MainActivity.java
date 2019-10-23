@@ -2,7 +2,9 @@ package com.example.ada_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -48,7 +50,6 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     private static String messages; // implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
-    Button button2;
     private ArrayList messageArrayList;
     StreamPlayer streamPlayer;
     private SpeechToText speechService;
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adaptador;
     ListView lvOpcoes;
     FloatingActionButton floatingActionButton;
-
     private TextToSpeech initTextToSpeeachService(){
 
         TextToSpeech service = new TextToSpeech();
@@ -98,17 +98,9 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button2 = (Button) findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(i);
-            }
-        });
+
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
         SharedPreferences preferences = getSharedPreferences("user_preferences", MODE_PRIVATE);
@@ -176,14 +168,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void searchAddress(String endereco){
         String urlTopass = "https://project-ada.mybluemix.net/getPlaces?searchText="+endereco.replaceAll(" ", "%20")+"&location=-23.5629,-46.6544";
+        Intent i = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(i);
         new ConnectAda(urlTopass).execute();
     }
 
-    public static String addresses(String result){
+
+    public void addresses(String result){
         String[] title;
         String[] address;
         String lat;
         String lng;
+
 
         if(result != null){
             messages = "Encontrei alguns lugares para onde poderia gostar de ir";
@@ -218,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
+
                 }else{
 //                  locations = new JSONObject(geometry.getString(0));
 //                  String location = locations.getString("location");
@@ -234,7 +231,10 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        return result;
+
+
+       // return result;
+
     }
 
 
