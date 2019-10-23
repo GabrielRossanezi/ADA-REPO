@@ -4,17 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="274dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="2dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/back" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:tint="#ffffff"
+        app:rippleColor="#FFFFFF"
+        app:srcCompat="@android:drawable/ic_btn_speak_now" />
 
     <Button
-        android:layout_width="match_parent"
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ir para mapas"
-        android:id="@+id/actionMaps" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/actionMaps"
-        android:text="Ir para teste"
-        android:id="@+id/IrPara" />
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_below="@+id/imageView"
+        android:layout_marginBottom="-68dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="20dp"
+        android:text="Ir para maps" />
+
+
 </RelativeLayout>

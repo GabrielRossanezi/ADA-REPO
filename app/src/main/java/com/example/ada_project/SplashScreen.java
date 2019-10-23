@@ -2,12 +2,13 @@ package com.example.ada_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends Activity {
 
     private static int SPLASH_TIME_OUT = 3000;
 

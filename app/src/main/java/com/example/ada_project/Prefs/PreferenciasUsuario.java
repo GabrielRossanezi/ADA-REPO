@@ -11,4 +11,10 @@ public class PreferenciasUsuario {
         editor.putString("userName", userName);
         editor.commit();
     }
+
+    public static  void welcome(SharedPreferences preferences, String data){
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("welcome", data);
+        editor.commit();
+    }
 }

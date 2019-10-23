@@ -29,7 +29,10 @@ public class TesteActivity extends AppCompatActivity {
 
     private TextToSpeech initTextToSpeeachService(){
         TextToSpeech service = new TextToSpeech();
-        service.setApiKey("lLrMAvRPcVj-ztqHou1uo3wlhRoCGFoBXdLGMskF7x5h");
+        String apiKey = getString(R.string.text_speech_iam_apikey);
+        service.setEndPoint(getString(R.string.text_speech_url));
+
+        service.setUsernameAndPassword("apiKey", apiKey);
         return service;
     }
 
@@ -38,16 +41,17 @@ public class TesteActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
+
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    textView.setText("Running then Watson Thread");
+                    textView.setText("running the watson thread");
                 }
             });
 
             TextToSpeech textToSpeech = initTextToSpeeachService();
             streamPlayer = new StreamPlayer();
-            streamPlayer.playStream(textToSpeech.synthesize(v, Voice.PT_ISABELA).execute());
+            streamPlayer.playStream(textToSpeech.synthesize(String.valueOf(text.getText()), Voice.PT_ISABELA).execute());
             return "Text";
         }
 
@@ -61,6 +65,7 @@ public class TesteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teste);
+        textView = (TextView) findViewById(R.id.textView);
         text = (EditText) findViewById(R.id.texto);
         v = String.valueOf(text.getText());
         btnOuvir = (Button) findViewById(R.id.ouvir);
