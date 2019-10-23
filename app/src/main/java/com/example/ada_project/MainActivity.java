@@ -11,7 +11,10 @@ import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.ada_project.AsyncTask.ConnectAda;
@@ -38,11 +41,12 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
-    private static String messages;// implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+    private static String messages; // implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     Button button2;
     private ArrayList messageArrayList;
@@ -54,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
     Double NowLat, NowLong;
     private static final int REQ_CODE_SPEECH_INPUT = 100;
     WatsonTask task = new WatsonTask();
-
+    static List<String> opcoes;
+    ArrayAdapter<String> adaptador;
+    ListView lvOpcoes;
     FloatingActionButton floatingActionButton;
 
     private TextToSpeech initTextToSpeeachService(){
@@ -124,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
         task.execute(new String[]{});
 
+
     }
 
 
@@ -178,36 +185,49 @@ public class MainActivity extends AppCompatActivity {
         String lat;
         String lng;
 
-
         if(result != null){
             messages = "Encontrei alguns lugares para onde poderia gostar de ir";
             try {
+                opcoes = new ArrayList<String>();
 
                 Log.d("ARRAYS", result);
 
-                JSONObject jsonObject = new JSONObject(result);
-                JSONArray geometry = jsonObject.getJSONArray("geometry");
+                JSONArray jsonArray = new JSONArray(result);
+                //JSONArray geometry = jsonObject.getJSONArray("geometry");
 
                 JSONObject locations;
+                JSONObject geometry;
                 JSONObject locat;
+                JSONObject location;
+                String name;
 
-                if(geometry.length() > 1) {
-                    for (int i = 0; i < geometry.length(); i++) {
-                        locations = new JSONObject(geometry.getString(i));
-                        Log.i("TESTE", "nome=" + locations.getString("location"));
+                if(jsonArray.length() > 1) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        locations = new JSONObject(jsonArray.getString(i));
+                        geometry = new JSONObject(locations.getString("geometry"));
+                        name = locations.getString("name");
+                        opcoes.add(name);
+
+                        for(int y = 0; y < geometry.length(); y++){
+
+                            location = new JSONObject(geometry.getString("location"));
+                            String latitude = location.getString("lat");
+                            String longitude = location.getString("lng");
+
+
+                        }
+
                     }
                 }else{
-//                    locations = new JSONObject(geometry.getString(0));
-//                    String location = locations.getString("location");
-//                    Log.d("LOCATION", location);
+//                  locations = new JSONObject(geometry.getString(0));
+//                  String location = locations.getString("location");
+//                  Log.d("LOCATION", location);
                     messages = "Ok irei adicionar a rota, só um instante";
 
                 }
 
-               // JSONArray routeArray = json.getJSONArray("name");
-
-                //JSONObject routes = routeArray.getJSONObject(0);
-
+                // JSONArray routeArray = json.getJSONArray("name");
+               // JSONObject routes = routeArray.getJSONObject(0);
               //  JSONObject overviewPolylines = routes.getJSONObject("overview_polyline");
 
             }catch(JSONException e){
